@@ -8,6 +8,7 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
+import StudentActions from '../screens/student/StudentActions';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -19,7 +20,8 @@ const config = Platform.select({
 const HomeStack = createStackNavigator(
   {
     Login: LoginScreen,
-    SignUp: SignUpScreen
+    SignUp: SignUpScreen,
+    StudentActions: StudentActions,
   },
   config
 );
@@ -27,13 +29,16 @@ const HomeStack = createStackNavigator(
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Login',
+  tabBarOptions:{
+    activeTintColor: '#0eb751'
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
           ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          : 'md-log-in'
       }
     />
   ),
@@ -50,6 +55,9 @@ const LinksStack = createStackNavigator(
 
 LinksStack.navigationOptions = {
   tabBarLabel: 'Links',
+  tabBarOptions:{
+    activeTintColor: '#0eb751'
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   ),
@@ -66,6 +74,9 @@ const SettingsStack = createStackNavigator(
 
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Settings',
+  tabBarOptions:{
+    activeTintColor: '#0eb751'
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
   ),
