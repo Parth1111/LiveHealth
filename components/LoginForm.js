@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet,View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet,View, Text, TextInput, TouchableOpacity } from 'react-native'; 
+import { withNavigation } from 'react-navigation';
 
-export default class LoginForm extends Component {
+ class LoginForm extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -29,6 +31,14 @@ export default class LoginForm extends Component {
             <TouchableOpacity style={styles.buttonContainer}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
+
+            <View style={styles.signUpContainer}>
+          <TouchableOpacity onPress={() => {this.props.navigation.navigate('SignUp')}} style={styles.helpLink}>
+            <Text style={styles.helpLinkText}>
+              New student? Sign Up!
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -54,5 +64,17 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#FFFFFF',
         fontWeight: '700'
-    }
+    },
+      signUpContainer: {
+    alignItems: 'center'
+  },
+  helpLink: {
+    paddingVertical: 15,
+  },
+  helpLinkText: {
+    fontSize: 14,
+    color: '#2e78b7',
+  }
 });
+
+export default withNavigation(LoginForm);

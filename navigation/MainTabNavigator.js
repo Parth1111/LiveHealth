@@ -7,18 +7,23 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from '../screens/LoginScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
 
+
+
 const HomeStack = createStackNavigator(
   {
     Login: LoginScreen,
+    SignUp: SignUpScreen
   },
   config
 );
+
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Login',

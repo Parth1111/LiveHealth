@@ -23,12 +23,13 @@ export default function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'android' && <StatusBar barStyle="light-content" backgroundColor="#0996AE" />}
+        {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
         <AppNavigator />
       </View>
     );
   }
 }
+
 
 async function loadResourcesAsync() {
   await Promise.all([

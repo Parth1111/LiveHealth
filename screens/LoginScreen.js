@@ -6,12 +6,10 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   KeyboardAvoidingView,
   View,
 } from 'react-native';
 import LoginForm from '../components/LoginForm';
-import { MonoText } from '../components/StyledText';
 
 export default function LoginScreen() {
 
@@ -51,13 +49,13 @@ export default function LoginScreen() {
           </Text>
         </View> */}
 
-        <View style={styles.signUpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+        {/* <View style={styles.signUpContainer}>
+          <TouchableOpacity onPress={handleSignUpPress} style={styles.helpLink}>
             <Text style={styles.helpLinkText}>
               New student? Sign Up!
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
 
       {/* <View style={styles.tabBarInfoContainer}>
@@ -109,7 +107,7 @@ function handleLearnMorePress() {
   );
 }
 
-function handleHelpPress() {
+function handleSignUpPress() {
   WebBrowser.openBrowserAsync(
     'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
   );
