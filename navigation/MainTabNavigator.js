@@ -9,6 +9,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import StudentActions from '../screens/student/StudentActions';
+import TeacherActions from '../screens/teacher/TeacherActions';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -22,6 +23,7 @@ const HomeStack = createStackNavigator(
     Login: LoginScreen,
     SignUp: SignUpScreen,
     StudentActions: StudentActions,
+    TeacherActions: TeacherActions,
   },
   config
 );
