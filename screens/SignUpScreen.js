@@ -60,23 +60,7 @@ class SignUpScreen extends Component {
 
 
             <TextInput
-              placeholder="Student Mobile Number"
-              placeholderTextColor="#a9a9a9"
-              returnKeyType="next"
-              keyboardType="default"
-              autoCorrect={false}
-              style={styles.input}/>
-
-            <TextInput
-              placeholder="Student Email Address"
-              placeholderTextColor="#a9a9a9"
-              returnKeyType="next"
-              keyboardType="default"
-              autoCorrect={false}
-              style={styles.input}/>
-
-            <TextInput
-              placeholder="Parent's Mobile Number"
+              placeholder="Student's Email Address"
               placeholderTextColor="#a9a9a9"
               returnKeyType="next"
               keyboardType="default"

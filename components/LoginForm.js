@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet,View, Text, TextInput, TouchableOpacity } from 'react-native'; 
 import { withNavigation } from 'react-navigation';
+import { SQLite } from 'expo-sqlite';
+
+const db = SQLite.openDatabase('testDB.db');
 
  class LoginForm extends Component {
 
@@ -8,6 +11,29 @@ import { withNavigation } from 'react-navigation';
     super(props);
     this.state = {
     };
+  }
+
+
+  componentDidMount(){
+  db.transaction((tx) => {
+        tx.executeSql('create table if not exists tabtest (id integer primary key, sym text, name text);', [], (tx) => {
+            console.log('----created---');
+        });
+        tx.executeSql('SELECT * FROM tabtest;', [], (tx, results) => {
+            console.log('any rows here ??');
+        });
+  }, null, function () {
+        console.log('-- are we done--?--');
+  });
+  }
+
+
+  addData = () => {
+    db.transaction((tx) => {
+      tx.executeSql('insert into tabtest (sym, name) values (?,?)', ["qwe","qwe"], (tx, results) => {
+        console.log('added data');
+      }, (tx) => {console.log('not added')});
+}, null);
   }
 
   render() {
@@ -28,7 +54,7 @@ import { withNavigation } from 'react-navigation';
             secureTextEntry
             style={styles.input}/>
 
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={this.addData}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
 
@@ -43,6 +69,7 @@ import { withNavigation } from 'react-navigation';
     );
   }
 }
+
 
 const styles = StyleSheet.create({
     container: {
