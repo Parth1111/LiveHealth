@@ -33,7 +33,7 @@ import { withNavigation } from 'react-navigation';
             </TouchableOpacity>
 
             <View style={styles.signUpContainer}>
-          <TouchableOpacity onPress={() => {this.props.navigation.navigate('AddNotice')}} style={styles.helpLink}>
+          <TouchableOpacity onPress={() => {this.props.navigation.navigate('SignUp')}} style={styles.helpLink}>
             <Text style={styles.helpLinkText}>
               New student? Sign Up!
             </Text>

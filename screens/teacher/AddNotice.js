@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, StatusBar, TouchableOpacity } from 'react-native';
 
+import Piechart from 'react-native-pie-chart';  
+import Color from '../../constants/Colors'
+
 export default class AddNotice extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +12,9 @@ export default class AddNotice extends Component {
   }
 
   render() {
+    const chart_wh = 200
+    const series = [60, 40]
+    const sliceColor = [Color.livehealthGreen,'#FFEB3B']
     return (
       <View style={styles.container}>
           <TextInput
@@ -28,6 +34,14 @@ export default class AddNotice extends Component {
             <TouchableOpacity style={styles.buttonContainer}>
                 <Text style={styles.buttonText}>Add Notice</Text>
             </TouchableOpacity>
+
+            <Piechart
+            chart_wh={chart_wh}
+            series={series}
+            sliceColor={sliceColor}
+            doughnut={true}
+            coverRadius={0.45}
+            coverFill={'#FFF'}/>
 
       </View>
     );
