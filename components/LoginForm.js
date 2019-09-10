@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet,View, Text, TextInput, TouchableOpacity } from 'react-native'; 
+import { StyleSheet,View, Text, TextInput, TouchableOpacity, Picker, AsyncStorage } from 'react-native'; 
 import { withNavigation } from 'react-navigation';
 import { SQLite } from 'expo-sqlite';
 
+
 const db = SQLite.openDatabase('testDB.db');
+const userInfo = {role: 'PrincipalActions', username: 'teacher1@gmail.com', password: 'teacher1'}
 
  class LoginForm extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      role: '',
+      username: '',
+      password: '',
     };
   }
 
@@ -18,7 +23,7 @@ const db = SQLite.openDatabase('testDB.db');
     //Creating tables and prepopulating teacher_test table.
     db.transaction((tx) => {
 
-      //teacher table creation
+      //teacher table creation 
       tx.executeSql('create table if not exists teacher_test (teacher_name text, class text, teacher_email text unique, password text);', [], (tx) => {
             console.log('--teacher table created--');
         });
@@ -79,37 +84,52 @@ const db = SQLite.openDatabase('testDB.db');
   });
   }
 
-
-  addData = () => {
-    db.transaction((tx) => {
-      tx.executeSql('insert into tabtest2 (sym, name) values (?,?)', ["qwe1",1], (tx, results) => {
-        console.log('added data');
-      }, (tx) => {console.log('not added')});
-      tx.executeSql('SELECT * FROM tabtest2;', [], (tx, results) => {
-        console.log(JSON.stringify(results));
-      });
-}, null);
+  
+login = () => {
+  if(userInfo.role === this.state.role && userInfo.username === this.state.username && userInfo.password === this.state.password){
+    this.props.navigation.navigate(this.state.role);
+  }else{
+    alert('Email or password is incorrect');
   }
+}
+
 
   render() {
     return (
       <View style={styles.container}>
+          <Picker
+            itemStyle={{color: '#a9a9a9'}}
+            selectedValue={this.state.role}
+            onValueChange={(role) => this.setState({role})}
+            style={styles.picker}>
+            <Picker.Item  color="#a9a9a9" label="I am a" value=''/>
+            <Picker.Item  label="Teacher" value="TeacherActions"/>
+            <Picker.Item  label="Student" value="StudentActions"/>
+            <Picker.Item  label="Principal" value="PrincipalActions"/>
+          </Picker>
+        
           <TextInput
-            placeholder="username or email"
+            placeholder="email address"
             returnKeyType="next"
             onSubmitEditing={() => this.passwordInput.focus()}
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
+            onChangeText={(username) => this.setState({username})}
+            value={this.state.username}
             style={styles.input}/>
+
+
           <TextInput
             placeholder="password"
             returnKeyType="go"
             ref = {(input) => this.passwordInput = input}
             secureTextEntry
+            onChangeText={(password) => this.setState({password})}
+            value={this.state.password}
             style={styles.input}/>
 
-            <TouchableOpacity style={styles.buttonContainer} onPress={this.addData}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={this.login}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
 
@@ -156,6 +176,12 @@ const styles = StyleSheet.create({
   helpLinkText: {
     fontSize: 14,
     color: '#2e78b7',
+  },
+  picker: {
+    width: '100%',
+    backgroundColor: 'rgba(220,220,220,0.3)',
+    marginBottom: 15,
+    paddingHorizontal: 10
   }
 });
 

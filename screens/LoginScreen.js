@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-      paddingTop: '40%'
+      paddingTop: '20%'
   },
   logoContainer: {
     alignItems: 'center',

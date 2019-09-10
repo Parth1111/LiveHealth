@@ -6,7 +6,7 @@ import MainTabNavigator from './MainTabNavigator';
 import SignUpScreen from '../screens/SignUpScreen';
 import LoginScreen from '../screens/LoginScreen';
 
-//const AuthStack = createStackNavigator({Main: MainTabNavigator, SignIn: LoginScreen, SignUp: SignUpScreen});
+const AuthStack = createStackNavigator({Login: LoginScreen});
 
 export default createAppContainer(
   createSwitchNavigator({
