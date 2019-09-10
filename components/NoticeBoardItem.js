@@ -8,7 +8,7 @@ export default function NoticeBoardItem(props) {
         return (
             <Card style={{flexDirection: 'row'}}>
             <View style={styles.container}>
-                <Text style={styles.titletext}>{props.title}</Text>
+                <Text numberOfLines={1} ellipsizeMode={'clip'} style={styles.titletext}>{props.title}</Text>
                 <Text style={styles.content}>{props.content}</Text>
                 <Text style={styles.date}>{props.date}</Text>
             </View>
@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
     },
     titletext: {
       alignSelf: 'flex-start',
-      fontSize: 20,
+      fontSize: 17,
+      fontWeight: 'bold',
       height: 50,
     },
     content: {
-        alignSelf: 'center',
+        alignSelf: 'flex-start',
         fontSize: 15,
     },
     date: {

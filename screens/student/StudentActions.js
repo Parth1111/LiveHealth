@@ -10,12 +10,26 @@ export default class StudentActions extends Component {
   }
 
   render() {
+    const {navigation} = this.props;
+    const student_email = navigation.getParam('student_email')
     return (
       <View>
-        <ActListItem icon={'md-person'} title={"View Attendance"}/>
-        <ActListItem icon={'md-clipboard'} title={"View Notice Board"}/>
-        <ActListItem icon={'md-calendar'} title={"View Time table"}/>
-        <ActListItem icon={'md-book'} title={"View Syllabus"}/>
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('ViewAttendance',{studentmail: student_email})}}>
+          <ActListItem icon={'md-person'} title={"View Attendance"}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('NoticeBoardScreen', {studentmail: student_email})}}>
+          <ActListItem icon={'md-clipboard'} title={"View Notice Board"}/>
+        </TouchableOpacity>
+        
+        <TouchableOpacity>
+          <ActListItem icon={'md-calendar'} title={"View Time table"}/>
+        </TouchableOpacity>
+        
+        <TouchableOpacity>
+          <ActListItem icon={'md-book'} title={"View Syllabus"}/>
+        </TouchableOpacity>
+
       </View>
     );
   }
