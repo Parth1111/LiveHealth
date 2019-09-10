@@ -15,6 +15,8 @@ import NoticeBoardScreen from '../screens/student/NoticeBoardScreen';
 import MyStudentsScreen from '../screens/teacher/MyStudentsScreen';
 import ViewClassesScreen from '../screens/principal/ViewClassesScreen';
 import AddNotice from '../screens/teacher/AddNotice';
+import ViewAttendanceScreen from '../screens/student/ViewAttendanceScreen';
+import MyNoticesScreen from '../screens/teacher/MyNoticesScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -34,6 +36,8 @@ const HomeStack = createStackNavigator(
     MyStudentsScreen: MyStudentsScreen,
     ViewClassesScreen: ViewClassesScreen,
     AddNotice: AddNotice,
+    ViewAttendance: ViewAttendanceScreen,
+    MyNotices: MyNoticesScreen,
   },
   config
 );

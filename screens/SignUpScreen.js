@@ -28,7 +28,15 @@ class SignUpScreen extends Component {
       }
 
 
-
+      clearInputs = () => {
+        this.setState({student_name: ''});
+        this.setState({student_class: ''});
+        this.setState({rollno: ''});
+        this.setState({student_email: ''});
+        this.setState({parent_email: ''});
+        this.setState({password: ''});
+      }
+      
 
 registerUser = () => {
   const {student_name} = this.state;
@@ -49,11 +57,14 @@ registerUser = () => {
                   console.log('added student data');
                   if(results.rowsAffected > 0){
                     Alert.alert('Congratulations!', 'You are registered. You may now login.');
+                    this.clearInputs();
                     this.props.navigation.navigate('Login');
                   }else{
                     Alert.alert('Registration failed');
+                    this.clearInputs();
                   }
                 }, (tx) => {Alert.alert('Alert','User already exists.')});
+                this.clearInputs();
 
                       //print student table to console
                 tx.executeSql('SELECT * FROM student_test;', [], (tx, results) => {

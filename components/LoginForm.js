@@ -5,7 +5,6 @@ import { SQLite } from 'expo-sqlite';
 
 
 const db = SQLite.openDatabase('testDB.db');
-const userInfo = {role: 'PrincipalActions', username: 'teacher1@gmail.com', password: 'teacher1'}
 
  class LoginForm extends Component {
 
@@ -32,6 +31,19 @@ const userInfo = {role: 'PrincipalActions', username: 'teacher1@gmail.com', pass
       tx.executeSql('create table if not exists student_test (student_name text, class text, rollno integer, student_email text unique, parent_email text, password text, attendance integer);', [], (tx) => {
           console.log('--student table created--');
       });
+
+
+      //prinicipal table creation
+      tx.executeSql('create table if not exists principal_test (principal_email text unique, password text);', [], (tx) => {
+        console.log('--principal table created--');
+      })
+
+      //notice table creation
+      tx.executeSql('create table if not exists notice (class text, notice_title text, notice_body text, notice_date text);', [], (tx) => {
+        console.log('--notice table created--');
+      })
+
+
 
       //prepopulating teacher table
       tx.executeSql('insert into teacher_test (teacher_name, class, teacher_email, password) values (?,?,?,?)', ["teacher1","BE1", "teacher1@gmail.com", "teacher1"], (tx, results) => {
@@ -74,24 +86,31 @@ const userInfo = {role: 'PrincipalActions', username: 'teacher1@gmail.com', pass
         console.log('added data10');
       }, (tx) => {console.log('not added')});
 
+      //populating principal table
+      tx.executeSql('insert into principal_test (principal_email, password) values (?,?)', ["principal@gmail.com", "principal"], (tx,results) => {
+        console.log('added data to principal table');
+      }, (tx) => {console.log('cant add data to principal table')});
+
       //print teacher table to console
       tx.executeSql('SELECT * FROM teacher_test;', [], (tx, results) => {
+        console.log('------------------------------- teacher table data ----------------------------------');
         console.log(JSON.stringify(results));
+        console.log('-------------------------------------------------------------------------------------');
       });
+
+      //print principal table to console
+      tx.executeSql('SELECT * FROM principal_test;', [], (tx, results) => {
+        console.log('------------------------------- principal table data ----------------------------------');
+        console.log(JSON.stringify(results));
+        console.log('-------------------------------------------------------------------------------------');
+      });
+
+
 
   }, null, function () {
         console.log('-- are we done--?--');
   });
   }
-
-  
-login = () => {
-  if(userInfo.role === this.state.role && userInfo.username === this.state.username && userInfo.password === this.state.password){
-    this.props.navigation.navigate(this.state.role);
-  }else{
-    alert('Email or password is incorrect');
-  }
-}
 
 
 clearInputs = () => {
@@ -117,7 +136,7 @@ handleLogin = () => {
               console.log(JSON.stringify(results));
               var len = results.rows.length;
               if(len > 0){
-                this.props.navigation.navigate(this.state.role);
+                this.props.navigation.navigate(this.state.role, {student_email: this.state.username});
                 console.log("user exists.");
                 this.clearInputs();
               }else{
@@ -135,16 +154,33 @@ handleLogin = () => {
               console.log(JSON.stringify(results));
               var len = results.rows.length;
               if(len > 0){
-                this.props.navigation.navigate(this.state.role);
+                this.props.navigation.navigate(this.state.role, {teacher_email: this.state.username});
                 console.log("user exists.");
+                this.clearInputs();
               }else{
                 console.log("user does not exist.");
+                this.clearInputs();
               }
             })
           })
 
         }else{
-          //code for checking teacher table and opening principa page.
+          //code for checking principal table and opening principal page.
+          db.transaction((tx) => {
+            tx.executeSql('select * from principal_test where principal_email = ? and password = ?;', [username, password],
+            (tx,results) => {
+              console.log(JSON.stringify(results));
+              var len = results.rows.length;
+              if(len > 0){
+                this.props.navigation.navigate(this.state.role);
+                this.clearInputs();
+              }else{
+                console.log("user does not exist.");
+                Alert.alert('Alert', 'User does not exist.');
+                this.clearInputs();
+              }
+            })
+          })
         }
       }else{
         Alert.alert('Alert','Password is a compulsory field.');

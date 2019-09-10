@@ -1,13 +1,21 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, TouchableOpacity } from 'react-native'
 import ActListItem from '../../components/ActionListItem';
 
 export default class PrincipalActions extends Component {
     render() {
         return (
             <View>
-                <ActListItem icon={'md-people'} title={"View Classes"}/>
-                <ActListItem icon={'md-person-add'} title={"Edit Teachers"}/>
+
+                <TouchableOpacity onPress={() => {this.props.navigation.navigate('ViewClassesScreen')}}>
+                    <ActListItem icon={'md-people'} title={"View Classes"}/>
+                </TouchableOpacity>
+
+                <TouchableOpacity>
+                    <ActListItem icon={'md-person-add'} title={"Edit Teachers"}/>
+                </TouchableOpacity>
+
+            
             </View>
         )
     }
