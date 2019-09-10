@@ -1,20 +1,78 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, StatusBar, TouchableOpacity, Alert } from 'react-native';
+import { SQLite } from 'expo-sqlite';
 
-import Piechart from 'react-native-pie-chart';  
-import Color from '../../constants/Colors'
+const db = SQLite.openDatabase('testDB.db');
+
 
 export default class AddNotice extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      teacherData: '',
+      notice_title: '',
+      notice_body: '',
+      notice_date: '',
     };
   }
 
+  componentDidMount(){
+    var today = new Date();
+    date=today.getDate() + "/"+ parseInt(today.getMonth()+1) +"/"+ today.getFullYear();
+    console.log(date);
+    this.setState({notice_date: date});
+  }
+
+
+  addNotice = () => {
+    const {notice_title} = this.state;
+    const {notice_body} = this.state;
+    const {notice_date} = this.state;
+
+
+    db.transaction((tx) => {
+      tx.executeSql('select * from teacher_test where teacher_email = ?;', [this.props.navigation.getParam('teachermail')],
+      (tx, results) => {
+        console.log(JSON.stringify(results));
+        var len = results.rows.length;
+        if(len > 0){
+            this.setState({teacherData: results.rows.item(0)});
+
+        }else{
+            console.log('Cannot get teachers data.');
+        }
+      }),
+      (tx, results) => {
+        console.log('error');
+      }
+    })
+
+    if(notice_title){
+      if(notice_body){
+        db.transaction((tx) => {
+          tx.executeSql('insert into notice (class, notice_title, notice_body, notice_date) values (?,?,?,?)', [this.state.teacherData.class, notice_title, notice_body, notice_date],
+          (tx,results) => {
+            console.log('added notice');
+            console.log(JSON.stringify(results));
+            if(results.rowsAffected > 0){
+              Alert.alert('Alert', 'Your notice has been added');
+              this.props.navigation.navigate('TeacherActions');
+            }
+          }, console.log('error in adding notice'));
+          //print notice table to console
+          tx.executeSql('SELECT * FROM notice;', [], (tx, results) => {
+            console.log('------------------------------- notice table data ----------------------------------');
+            console.log(JSON.stringify(results));
+            console.log('-------------------------------------------------------------------------------------');
+          });
+        })
+      }
+    }
+
+
+  }
+
   render() {
-    const chart_wh = 200
-    const series = [60, 40]
-    const sliceColor = [Color.livehealthGreen,'#FFEB3B']
     return (
       <View style={styles.container}>
           <TextInput
@@ -22,6 +80,8 @@ export default class AddNotice extends Component {
             returnKeyType="next"
             onSubmitEditing={() => this.contentInput.focus()}
             autoCorrect={true}
+            onChangeText={(notice_title) => this.setState({notice_title})}
+            value={this.state.notice_title}
             style={styles.input}/>
 
             <TextInput
@@ -29,19 +89,13 @@ export default class AddNotice extends Component {
             placeholder="Notice"
             returnKeyType="go"
             ref = {(input) => this.contentInput = input}
+            onChangeText={(notice_body) => this.setState({notice_body})}
+            value={this.state.notice_body}
             style={styles.contentinput}/>
 
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={this.addNotice}>
                 <Text style={styles.buttonText}>Add Notice</Text>
             </TouchableOpacity>
-
-            <Piechart
-            chart_wh={chart_wh}
-            series={series}
-            sliceColor={sliceColor}
-            doughnut={true}
-            coverRadius={0.45}
-            coverFill={'#FFF'}/>
 
       </View>
     );
