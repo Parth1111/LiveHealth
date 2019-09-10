@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,View, Text, TextInput, TouchableOpacity, Picker, AsyncStorage } from 'react-native'; 
+import { StyleSheet,View, Text, TextInput, TouchableOpacity, Picker, AsyncStorage, Alert } from 'react-native'; 
 import { withNavigation } from 'react-navigation';
 import { SQLite } from 'expo-sqlite';
 
@@ -94,6 +94,69 @@ login = () => {
 }
 
 
+clearInputs = () => {
+  this.setState({role: ''});
+  this.setState({username: ''});
+  this.setState({password: ''});
+}
+
+
+handleLogin = () => {
+  const {role} = this.state;
+  const {username} = this.state;
+  const {password} = this.state;
+
+  if(role){
+    if(username){
+      if(password){
+        if(role === 'StudentActions'){
+          //code for checking student table and opening student page.
+          db.transaction((tx) => {
+            tx.executeSql('select * from student_test where student_email = ? and password = ?;',[username, password],
+            (tx, results) => {
+              console.log(JSON.stringify(results));
+              var len = results.rows.length;
+              if(len > 0){
+                this.props.navigation.navigate(this.state.role);
+                console.log("user exists.");
+                this.clearInputs();
+              }else{
+                console.log("user does not exist.");  
+                this.clearInputs();             
+              }
+            })
+          })
+
+        }else if(role === 'TeacherActions'){
+          //code for checking teacher table and opening teacher page.
+          db.transaction((tx) => {
+            tx.executeSql('select * from teacher_test where teacher_email = ? and password = ?;',[username, password],
+            (tx, results) => {
+              console.log(JSON.stringify(results));
+              var len = results.rows.length;
+              if(len > 0){
+                this.props.navigation.navigate(this.state.role);
+                console.log("user exists.");
+              }else{
+                console.log("user does not exist.");
+              }
+            })
+          })
+
+        }else{
+          //code for checking teacher table and opening principa page.
+        }
+      }else{
+        Alert.alert('Alert','Password is a compulsory field.');
+      }
+    }else{
+      Alert.alert('Alert', 'Email Address is a compulsory field.');
+    }
+  }else{
+    Alert.alert('Alert','Please select your role.');
+  }
+}
+
   render() {
     return (
       <View style={styles.container}>
@@ -129,7 +192,7 @@ login = () => {
             value={this.state.password}
             style={styles.input}/>
 
-            <TouchableOpacity style={styles.buttonContainer} onPress={this.login}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={this.handleLogin}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
 

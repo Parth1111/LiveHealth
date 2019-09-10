@@ -23,63 +23,65 @@ class SignUpScreen extends Component {
           rollno: '',
           student_email: '',
           parent_email: '',
-          password: '',
+          password: ''
         };
       }
 
 
-      registerUser = () => {
-        const {student_name} = this.state;
-        const {student_class} = this.state;
-        const {rollno} = this.state;
-        const {student_email} = this.state;
-        const {parent_email} = this.state;
-        const {password} = this.state;
 
-        if(student_name){
-          if(student_class){
-            if(rollno){
-              if(student_email){
-                if(parent_email){
-                  if(password){
-                    db.transaction((tx) => {
-                      tx.executeSql('insert into student_test (student_name, class, rollno, student_email, parent_email, password, attendance) values (?,?,?,?,?,?,?)', [student_name,student_class, rollno, student_email, parent_email, password, 65], (tx, results) => {
-                        console.log('added student data');
-                        if(results.rowsAffected > 0){
-                          Alert.alert('Congratulations!', 'You are registered. You may now login.');
-                          this.props.navigation.navigate('Login');
-                        }else{
-                          Alert.alert('Registration failed');
-                        }
-                      }, (tx) => {console.log('not added')});
 
-                            //print student table to console
-                      tx.executeSql('SELECT * FROM student_test;', [], (tx, results) => {
-                        console.log(JSON.stringify(results));
-                      });
+registerUser = () => {
+  const {student_name} = this.state;
+  const {student_class} = this.state;
+  const {rollno} = this.state;
+  const {student_email} = this.state;
+  const {parent_email} = this.state;
+  const {password} = this.state;
 
-                    })
+  if(student_name){
+    if(student_class){
+      if(rollno){
+        if(student_email){
+          if(parent_email){
+            if(password){
+              db.transaction((tx) => {
+                tx.executeSql('insert into student_test (student_name, class, rollno, student_email, parent_email, password, attendance) values (?,?,?,?,?,?,?)', [student_name,student_class, rollno, student_email, parent_email, password, Math.floor(Math.random() * 100) + 1], (tx, results) => {
+                  console.log('added student data');
+                  if(results.rowsAffected > 0){
+                    Alert.alert('Congratulations!', 'You are registered. You may now login.');
+                    this.props.navigation.navigate('Login');
                   }else{
-                    Alert.alert('Password is a compulsory field.');
+                    Alert.alert('Registration failed');
                   }
-                }else{
-                  Alert.alert('Parent email is a compulsory field.');
-                }
-              }else{
-                Alert.alert('Student email is a compulsory field.');
-              }
+                }, (tx) => {Alert.alert('Alert','User already exists.')});
+
+                      //print student table to console
+                tx.executeSql('SELECT * FROM student_test;', [], (tx, results) => {
+                  console.log(JSON.stringify(results));
+                });
+
+              })
             }else{
-              Alert.alert('Roll number is a compulsory field.');
+              Alert.alert('Alert','Password is a compulsory field.');
             }
           }else{
-            Alert.alert('Class is a compulsory field.');
+            Alert.alert('Alert','Parent email is a compulsory field.');
           }
         }else{
-          Alert.alert('Student name is a compulsory field.');
+          Alert.alert('Alert','Student email is a compulsory field.');
         }
-
-        
+      }else{
+        Alert.alert('Alert','Roll number is a compulsory field.');
       }
+    }else{
+      Alert.alert('Alert','Class is a compulsory field.');
+    }
+  }else{
+    Alert.alert('Alert','Student name is a compulsory field.');
+  }
+
+  
+}
 
 
     render() {
