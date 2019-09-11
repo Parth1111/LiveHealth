@@ -24,7 +24,7 @@ export default function MyStudentsItem(props) {
 
                     <View style={styles.container}>
                         <Text style={styles.content}> {props.student_name} </Text>
-                        <Text style={styles.content}> {props.student_attendance} </Text>
+                        <Text style={styles.content}> {props.student_attendance}% </Text>
                         <Text style={styles.linkcontent} onPress={() => Linking.openURL('mailto:' + props.student_mail + '?subject=Attendance Notification.&body=This is to inform you that you currently have an attendance of ' + props.student_attendance + '%. Please attend the classes immediately else be ready to face further consequences.')}> {props.student_mail} </Text>
                         <Text style={styles.linkcontent} onPress={() => Linking.openURL('mailto:' + props.parent_mail + '?subject=Attendance Notification.&body=This is to inform you that your ward ' + props.student_name + ' has an attendance of ' +  props.student_attendance + '%. If the attendance of your ward is less than 75%, he or she may be detained for that semester.')}> {props.parent_mail} </Text>  
                     </View>

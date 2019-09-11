@@ -12,7 +12,7 @@ export default class TeacherActions extends Component {
                     <ActListItem icon={'md-people'} title={"My Students"}/>
                 </TouchableOpacity>
                 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {this.props.navigation.navigate('AverageAttendance', {teachermail: teacher_email})}}>
                     <ActListItem icon={'md-hand'} title={"Average Attendance"}/>
                 </TouchableOpacity>
 

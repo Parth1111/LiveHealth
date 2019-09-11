@@ -41,6 +41,7 @@ export default class ViewClassesScreen extends Component {
             }
           })
 
+
     }
 
     render() {
@@ -51,7 +52,7 @@ export default class ViewClassesScreen extends Component {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
                 <View key={item.user_id}>
-                <ClassItem class_name={item.class} class_attendance={"60"} teacher_name={item.teacher_name} teacher_mail={item.teacher_email}/>
+                <ClassItem class_name={item.class} teacher_name={item.teacher_name} teacher_mail={item.teacher_email}/>
                 </View>
             )}
             />

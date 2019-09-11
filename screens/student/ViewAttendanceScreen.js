@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
-import Piechart from 'react-native-pie-chart';  
+import { Text, View, StyleSheet } from 'react-native' 
 import Color from '../../constants/Colors'
 import { SQLite } from 'expo-sqlite';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const db = SQLite.openDatabase('testDB.db');
 
@@ -16,7 +14,6 @@ export default class ViewAttendanceScreen extends Component {
             studentData: '',
         };
       }
-
 
       componentDidMount(){
         db.transaction((tx) => {
@@ -37,48 +34,33 @@ export default class ViewAttendanceScreen extends Component {
       }
 
 
-
-
     render() {
-        const sliceColor = [Color.livehealthGreen,'#FFEB3B']
-        const chart_wh = 200
-        const att = parseInt(this.state.studentData.attendance)
-        const series = [60, 40]
 
         return (
             <View style={styles.container}>
-
-            <View style={styles.piechart}>
-                <Piechart
-                chart_wh={chart_wh}
-                series={series}
-                sliceColor={sliceColor}
-                doughnut={true}
-                coverRadius={0.45}
-                coverFill={'#FFF'}/>
-            </View>
-
-            <TouchableOpacity onPress={() => {this.getRecord}}>
-            <Text>{att}</Text>
-            </TouchableOpacity>
-
-
+            <Text style={styles.attendanceText} numberOfLines={1} ellipsizeMode={'clip'} >{this.state.studentData.attendance}%</Text>
+            <Text style={styles.lineText}>is your current attendance.</Text>
             </View>
         )
     }
 }
-getRecord = () => {
-
-}
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        flexDirection: 'column',
         paddingLeft: 20,
         paddingRight: 20,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
     },
-    piechart: {
-        alignItems: 'center',
-        paddingTop: '20%'
+    attendanceText: {
+        alignSelf: 'center',
+        paddingTop: '30%',
+        fontSize: 70,
+        color: Color.livehealthGreen, 
+    },
+    lineText: {
+        alignSelf: 'center',
+        color: Color.livehealthGreen,
     }
 });

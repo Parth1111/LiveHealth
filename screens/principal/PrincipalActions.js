@@ -11,9 +11,6 @@ export default class PrincipalActions extends Component {
                     <ActListItem icon={'md-people'} title={"View Classes"}/>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
-                    <ActListItem icon={'md-person-add'} title={"Edit Teachers"}/>
-                </TouchableOpacity>
 
             
             </View>

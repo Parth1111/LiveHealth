@@ -64,7 +64,7 @@ export default class MyStudentsScreen extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{marginBottom: 20}}>
           {/* <StudentItem student_name={this.state.studentData.student_name} student_attendance={this.state.studentData.attendance} student_mail={this.state.studentData.student_email} parent_mail={this.state.studentData.parent_email}/> */}
           <FlatList
           data={this.state.ListItems}
