@@ -1,4 +1,3 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
   Image,
@@ -8,6 +7,7 @@ import {
   Text,
   KeyboardAvoidingView,
   View,
+  ImageBackground
 } from 'react-native';
 import LoginForm from '../components/LoginForm';
 
@@ -15,62 +15,30 @@ export default function LoginScreen() {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
+      <ImageBackground style={{flex: 1}}>
+
+      <ScrollView contentContainerStyle={styles.contentContainer}>     
+
         <View style={styles.logoContainer}>
           <Image
             source={
               __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
+                ? require('../assets/images/gradientlogo.png')
+                : require('../assets/images/gradientlogo.png')
             }
             style={styles.welcomeImage}
           />
         </View>
 
-        <View style={styles.formContainer}>
+        <View>
             <LoginForm/> 
         </View>
 
-    
-        {/* <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/LoginScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
-        </View> */}
-
-        {/* <View style={styles.signUpContainer}>
-          <TouchableOpacity onPress={handleSignUpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              New student? Sign Up!
-            </Text>
-          </TouchableOpacity>
-        </View> */}
       </ScrollView>
 
-      {/* <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View> */}
+      </ImageBackground>
     </KeyboardAvoidingView>
+
   );
 }
 
@@ -78,40 +46,6 @@ LoginScreen.navigationOptions = {
   header: null,
 };
 
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
-
-function handleSignUpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -130,13 +64,12 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    //justifyContent: 'center',
     marginTop: 50,
     marginBottom: 20,
   },
   welcomeImage: {
-    width: 100,
-    height: 100,
+    width: 70,
+    height: 70,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,

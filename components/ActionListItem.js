@@ -7,31 +7,38 @@ import Colors from '../constants/Colors';
 export default function ActionListItem(props) {
 
     return (
-      <Card style={{flexDirection: 'row'}}>
-        <View style={styles.container}>
+      <View>
+      <Card>
+        <View style={{flexDirection: 'row', paddingStart: 10}}>
 
+        <View style={styles.container}>
           <Ionicons
             name={props.icon}
-            size={40}
-            style={{ marginBottom: -3 }}
-            color={Colors.livehealthGreen}/>
-  
+            size={30}
+            />
+        </View>
+
+        <View style={{paddingLeft: 10, paddingRight: 10}}/>        
+        <View style={styles.container}>
         <Text style={styles.text}>{props.title}</Text>
         </View>
+
+        </View>
       </Card>
+      </View>
     );
   }
 
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    paddingTop: 10
   },
   text: {
     alignSelf: 'center',
     fontSize: 20,
-    color: '#0eb751',
-    height: 50,
+    height: 40,
   }
 });

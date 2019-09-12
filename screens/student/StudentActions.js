@@ -32,7 +32,7 @@ export default class StudentActions extends Component {
 
 
         <TouchableOpacity onPress={() => {this._logOutAsync()}}>
-          <ActListItem icon={'md-book'} title={"Log out"}/>
+          <ActListItem icon={'md-log-out'} title={"Log out"}/>
         </TouchableOpacity>
 
       </View>

@@ -3,7 +3,7 @@ const tintColor = '#2f95dc';
 export default {
   tintColor,
   tabIconDefault: '#ccc',
-  livehealthGreen: '#0eb751',
+  livehealthGreen: '#30c1ad',
   tabIconSelected: '#0eb751',
   tabBar: '#fefefe',
   errorBackground: 'red',

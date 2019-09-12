@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import {  View, Text, StyleSheet } from 'react-native';
+import {  View, Text, StyleSheet, ImageBackground } from 'react-native';
+import AnimateNumber from 'react-native-animate-number'
 import Color from '../../constants/Colors'
 import { SQLite } from 'expo-sqlite';
 
@@ -52,10 +53,13 @@ export default class AverageAttendanceScreen extends PureComponent {
 
   render() {
     return (
+      <ImageBackground source={require('../../assets/images/background4.png')} style={{flex: 1}}>
       <View style={styles.container}>
-      <Text style={styles.attendanceText} numberOfLines={1} ellipsizeMode={'clip'} >{this.state.studentData.avg}%</Text>
+      <AnimateNumber value={this.state.studentData.avg} style={styles.attendanceText} formatter={(val) => {
+                return parseFloat(val).toFixed(1) + '%'}}/>
       <Text style={styles.lineText}>is the average attendance of your class.</Text>
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -66,7 +70,6 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       paddingLeft: 20,
       paddingRight: 20,
-      backgroundColor: '#FFFFFF',
   },
   attendanceText: {
       alignSelf: 'center',

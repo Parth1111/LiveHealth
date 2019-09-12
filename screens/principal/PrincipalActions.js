@@ -12,7 +12,7 @@ export default class PrincipalActions extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => {this._logOutAsync()}}>
-                    <ActListItem icon={'md-people'} title={"Log out"}/>
+                    <ActListItem icon={'md-log-out'} title={"Log out"}/>
                 </TouchableOpacity>
 
             </View>

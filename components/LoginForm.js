@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet,View, Text, TextInput, TouchableOpacity, Picker, AsyncStorage, Alert } from 'react-native'; 
 import { withNavigation } from 'react-navigation';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SQLite } from 'expo-sqlite';
 
 
@@ -248,7 +249,11 @@ handleLogin = () => {
             style={styles.input}/>
 
             <TouchableOpacity style={styles.buttonContainer} onPress={this.handleLogin}>
+            <LinearGradient
+          colors={['#41cf98', '#3cca9f','#30c1ad' ]}
+          style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
                 <Text style={styles.buttonText}>Login</Text>
+                </LinearGradient>
             </TouchableOpacity>
 
             <View style={styles.signUpContainer}>
@@ -268,7 +273,7 @@ const styles = StyleSheet.create({
     container: {
         paddingLeft: 20,
         paddingRight: 20,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: 'transparent'
     },
     input: {
         height: 40,
@@ -277,29 +282,28 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     buttonContainer: {
-        backgroundColor: '#0eb751',
         paddingVertical: 15 
     },
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '700'
+        
     },
-      signUpContainer: {
+    signUpContainer: {
     alignItems: 'center'
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
-  picker: {
-    width: '100%',
-    backgroundColor: 'rgba(220,220,220,0.3)',
-    marginBottom: 15,
-    paddingHorizontal: 10
+    },
+    helpLink: {
+      paddingVertical: 15,
+    },
+    helpLinkText: {
+      fontSize: 14,
+      color: '#2e78b7',
+    },
+    picker: {
+      width: '100%',
+      backgroundColor: 'rgba(220,220,220,0.3)',
+      marginBottom: 15,
+      paddingHorizontal: 10
   }
 });
 
