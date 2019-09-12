@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, AsyncStorage } from 'react-native';
 import ActListItem from '../../components/ActionListItem';
 
 export default class StudentActions extends Component {
@@ -22,15 +22,26 @@ export default class StudentActions extends Component {
           <ActListItem icon={'md-clipboard'} title={"View Notice Board"}/>
         </TouchableOpacity>
         
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('TimeTable')}}>
           <ActListItem icon={'md-calendar'} title={"View Time table"}/>
         </TouchableOpacity>
         
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Syllabus')}}>
           <ActListItem icon={'md-book'} title={"View Syllabus"}/>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity onPress={() => {this._logOutAsync()}}>
+          <ActListItem icon={'md-book'} title={"Log out"}/>
         </TouchableOpacity>
 
       </View>
     );
   }
+
+  _logOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth');
+  };
+
 }

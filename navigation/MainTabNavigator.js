@@ -18,6 +18,8 @@ import AddNotice from '../screens/teacher/AddNotice';
 import ViewAttendanceScreen from '../screens/student/ViewAttendanceScreen';
 import MyNoticesScreen from '../screens/teacher/MyNoticesScreen';
 import AverageAttendanceScreen from '../screens/teacher/AverageAttendanceScreen';
+import TimeTableScreen from '../screens/student/TimeTableScreen';
+import SyllabusScreen from '../screens/student/SyllabusScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -40,6 +42,8 @@ const HomeStack = createStackNavigator(
     ViewAttendance: ViewAttendanceScreen,
     MyNotices: MyNoticesScreen,
     AverageAttendance: AverageAttendanceScreen,
+    TimeTable: TimeTableScreen,
+    Syllabus: SyllabusScreen,
   },
   config
 );

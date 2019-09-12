@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, AsyncStorage } from 'react-native'
 import ActListItem from '../../components/ActionListItem';
 
 export default class PrincipalActions extends Component {
@@ -11,9 +11,16 @@ export default class PrincipalActions extends Component {
                     <ActListItem icon={'md-people'} title={"View Classes"}/>
                 </TouchableOpacity>
 
+                <TouchableOpacity onPress={() => {this._logOutAsync()}}>
+                    <ActListItem icon={'md-people'} title={"Log out"}/>
+                </TouchableOpacity>
 
-            
             </View>
         )
     }
+
+    _logOutAsync = async () => {
+        await AsyncStorage.clear();
+        this.props.navigation.navigate('Auth');
+      };
 }

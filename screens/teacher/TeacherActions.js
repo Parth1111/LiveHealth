@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, AsyncStorage, BackHandler } from 'react-native'
 import ActListItem from '../../components/ActionListItem';
 
 export default class TeacherActions extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+      }
+
+
     render() {
         const {navigation} = this.props;
         const teacher_email = navigation.getParam('teacher_email')
@@ -24,7 +31,16 @@ export default class TeacherActions extends Component {
                 <TouchableOpacity onPress={() => {this.props.navigation.navigate('AddNotice', {teachermail: teacher_email})}}>
                     <ActListItem icon={'md-clipboard'} title={"Add a notice"}/>
                 </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => {this._logOutAsync()}}>
+                    <ActListItem icon={'md-book'} title={"Log out"}/>
+                </TouchableOpacity>
             </View>
         )
     }
+
+    _logOutAsync = async () => {
+      await AsyncStorage.clear();
+      this.props.navigation.navigate('Auth');
+    };
 }

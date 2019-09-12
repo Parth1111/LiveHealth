@@ -1,4 +1,4 @@
-import { AppLoading } from 'expo';
+import { AppLoading, Expo } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
@@ -9,6 +9,7 @@ import AppNavigator from './navigation/AppNavigator';
 
 
 export default function App(props) {
+
   
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
@@ -29,6 +30,7 @@ export default function App(props) {
     );
   }
 }
+
 
 
 async function loadResourcesAsync() {
@@ -56,6 +58,8 @@ function handleLoadingError(error) {
 function handleFinishLoading(setLoadingComplete) {
   setLoadingComplete(true);
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

@@ -17,6 +17,28 @@ const db = SQLite.openDatabase('testDB.db');
     };
   }
 
+  _logInAsync = async () => {
+    let role = this.state.role;
+    let username = this.state.username;
+    let password = this.state.password;
+    AsyncStorage.setItem('role', role);
+    AsyncStorage.setItem('username', username);
+    AsyncStorage.setItem('password', password);
+    
+    if(role === 'StudentActions' && username && password){
+      this.props.navigation.navigate(role, {student_email: username});
+    }else if(role === 'TeacherActions' && username && password){
+      this.props.navigation.navigate(role, {teacher_email: username});
+    }else{
+      this.props.navigation.navigate(role)
+    }
+  };
+
+
+  componentWillMount(){
+    this._logInAsync();
+  }
+
 
   componentDidMount(){
     //Creating tables and prepopulating teacher_test table.
@@ -105,8 +127,6 @@ const db = SQLite.openDatabase('testDB.db');
         console.log('-------------------------------------------------------------------------------------');
       });
 
-
-
   }, null, function () {
         console.log('-- are we done--?--');
   });
@@ -138,9 +158,9 @@ handleLogin = () => {
               if(len > 0){
                 this.props.navigation.navigate(this.state.role, {student_email: this.state.username});
                 console.log("user exists.");
-                this.clearInputs();
               }else{
-                console.log("user does not exist.");  
+                console.log("user does not exist."); 
+                Alert.alert('Alert','User does not exist.'); 
                 this.clearInputs();             
               }
             })
@@ -156,9 +176,9 @@ handleLogin = () => {
               if(len > 0){
                 this.props.navigation.navigate(this.state.role, {teacher_email: this.state.username});
                 console.log("user exists.");
-                this.clearInputs();
               }else{
                 console.log("user does not exist.");
+                Alert.alert('Alert','User does not exist.');
                 this.clearInputs();
               }
             })
@@ -173,7 +193,6 @@ handleLogin = () => {
               var len = results.rows.length;
               if(len > 0){
                 this.props.navigation.navigate(this.state.role);
-                this.clearInputs();
               }else{
                 console.log("user does not exist.");
                 Alert.alert('Alert', 'User does not exist.');
