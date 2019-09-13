@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Constants } from 'expo';
+import PDFReader from 'rn-pdf-reader-js';
 
 
 export default class SyllabusScreen extends Component {
@@ -13,7 +13,11 @@ export default class SyllabusScreen extends Component {
   render() {
     return (
     <View style={styles.container}>
-  
+        <PDFReader
+        source={{
+          uri: 'https://pict.edu/wp-content/uploads/2015/09/BE-Computer-2015-Course.pdf',
+        }}
+        />
     </View>
     );
   }
@@ -22,7 +26,6 @@ export default class SyllabusScreen extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: Constants.statusBarHeight,
       backgroundColor: '#ecf0f1',
     },
   })

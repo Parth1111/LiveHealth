@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, StatusBar, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, StatusBar, TouchableOpacity, Alert, ImageBackground } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SQLite } from 'expo-sqlite';
 
 const db = SQLite.openDatabase('testDB.db');
@@ -74,6 +75,7 @@ export default class AddNotice extends Component {
 
   render() {
     return (
+      <ImageBackground source={require('../../assets/images/background4.png')} style={{flex: 1}}>
       <View style={styles.container}>
           <TextInput
             placeholder="Title"
@@ -94,10 +96,14 @@ export default class AddNotice extends Component {
             style={styles.contentinput}/>
 
             <TouchableOpacity style={styles.buttonContainer} onPress={this.addNotice}>
+            <LinearGradient
+              colors={['#41cf98', '#3cca9f','#30c1ad' ]}
+              style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
                 <Text style={styles.buttonText}>Add Notice</Text>
+                </LinearGradient>
             </TouchableOpacity>
-
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -116,13 +122,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     buttonContainer: {
-        backgroundColor: '#0eb751',
         paddingVertical: 15 
     },
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '700'
     },
   contentinput: {
     minHeight: 40,

@@ -193,7 +193,7 @@ handleLogin = () => {
               console.log(JSON.stringify(results));
               var len = results.rows.length;
               if(len > 0){
-                this.props.navigation.navigate(this.state.role);
+                this.props.navigation.navigate(this.state.role, {principal_email: this.state.username});
               }else{
                 console.log("user does not exist.");
                 Alert.alert('Alert', 'User does not exist.');
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     buttonContainer: {
-        paddingVertical: 15 
+        paddingTop: 10 
     },
     buttonText: {
         textAlign: 'center',

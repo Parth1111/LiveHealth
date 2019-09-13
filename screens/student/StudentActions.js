@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, AsyncStorage } from 'react-native';
+import { View, TouchableOpacity, AsyncStorage, Text, StyleSheet } from 'react-native';
+import Color from '../../constants/Colors'
 import ActListItem from '../../components/ActionListItem';
 
 export default class StudentActions extends Component {
@@ -14,6 +15,11 @@ export default class StudentActions extends Component {
     const student_email = navigation.getParam('student_email')
     return (
       <View>
+
+      <Text style={styles.helloText}>Welcome,</Text>
+      <Text style={styles.emailText}>{student_email}</Text>
+
+
         <TouchableOpacity onPress={() => {this.props.navigation.navigate('ViewAttendance',{studentmail: student_email})}}>
           <ActListItem icon={'md-person'} title={"View Attendance"}/>
         </TouchableOpacity>
@@ -45,3 +51,19 @@ export default class StudentActions extends Component {
   };
 
 }
+
+const styles = StyleSheet.create({
+  helloText: {
+    color: Color.livehealthGreen,
+    fontSize: 20,
+    fontStyle: 'italic',
+    paddingLeft:20,
+    paddingTop:20,
+  },
+  emailText: {
+    color: Color.livehealthGreen, 
+    fontSize: 15, 
+    paddingLeft:20, 
+    fontStyle: 'italic'
+  }
+})

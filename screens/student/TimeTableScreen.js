@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {  View, StyleSheet } from 'react-native';
-import { Constants } from 'expo'; 
+import PDFReader from 'rn-pdf-reader-js';
 
 
 export default class TimeTableScreen extends PureComponent {
@@ -14,7 +14,11 @@ export default class TimeTableScreen extends PureComponent {
   render() {
     return (
       <View style={styles.container}>
-
+          <PDFReader
+          source={{
+            uri: 'https://pict.edu/wp-content/uploads/2015/09/BE-CLASS-TT-New.pdf',
+          }}
+          />
       </View>
  
  );
@@ -24,7 +28,6 @@ export default class TimeTableScreen extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
   },
 })

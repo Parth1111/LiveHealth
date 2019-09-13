@@ -9,6 +9,7 @@ import { Text,
         Picker,
         Alert} from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SQLite } from 'expo-sqlite';
 
 const db = SQLite.openDatabase('testDB.db');
@@ -173,7 +174,11 @@ registerUser = () => {
               style={styles.input}/>
             
               <TouchableOpacity style={styles.buttonContainer} onPress={this.registerUser.bind(this)}>
+              <LinearGradient
+              colors={['#41cf98', '#3cca9f','#30c1ad' ]}
+              style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
                   <Text style={styles.buttonText}>Sign Up</Text>
+                  </LinearGradient>
               </TouchableOpacity>
   
         </KeyboardAvoidingView>
@@ -196,13 +201,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     buttonContainer: {
-        backgroundColor: '#0eb751',
         paddingVertical: 15 
     },
     buttonText: {
         textAlign: 'center',
         color: '#FFFFFF',
-        fontWeight: '700'
     },
     picker: {
         width: '100%',

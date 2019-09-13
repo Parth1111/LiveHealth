@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
 import  NoticeItem  from '../../components/NoticeBoardItem';
 import { SQLite } from 'expo-sqlite';
 
@@ -65,9 +65,7 @@ export default class MyNoticesScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {/* <NoticeItem title={"Title 1"} content={"dfglkjfglk aslkjfahdl aslfkgjhsal asldkjfhsl asldkjah aslkjdfhasl asldkjfahdl asldkjahl aslkjdghzlkj asldjfhasdlkj a sejhsa lkj alskjdfslthu akjehawljhs ljh saelkjhsek tjh lkjhlwkrh."} date={"9/9/2019"}/>
-                <NoticeItem title={"Title 2"} content={"dfglkjfglk aslkjfahdl aslfkgjhsal asldkjfhsl asldkjah aslkjdfhasl asldkjfahdl asldkjahl aslkjdghzlkj asldjfhasdlkj a sejhsa lkj alskjdfslthu akjehawljhs ljh saelkjhsek tjh lkjhlwkrh."} date={"9/9/2019"}/> */}
-                
+   
                 <FlatList
                 data={this.state.ListItems}
                 keyExtractor={(item, index) => index.toString()}
@@ -75,8 +73,7 @@ export default class MyNoticesScreen extends Component {
                     <View key={item.user_id}>
                     <NoticeItem title={item.notice_title} content={item.notice_body}  date={item.notice_date}/>
                     </View>
-                )}
-                />
+                )}/>
 
             </View>
         )
