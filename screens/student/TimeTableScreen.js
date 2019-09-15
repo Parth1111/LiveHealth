@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {  View, StyleSheet } from 'react-native';
-import PDFReader from 'rn-pdf-reader-js';
+import { WebView } from 'react-native-webview';
 
 
 export default class TimeTableScreen extends PureComponent {
@@ -14,11 +14,7 @@ export default class TimeTableScreen extends PureComponent {
   render() {
     return (
       <View style={styles.container}>
-          <PDFReader
-          source={{
-            uri: 'https://pict.edu/wp-content/uploads/2015/09/BE-CLASS-TT-New.pdf',
-          }}
-          />
+          <WebView source={{ uri: 'https://drive.google.com/file/d/1b8hMw8QFLdDNVCbgPCCLqEZE-kBxZ1WP/view?usp=sharing' }}/>
       </View>
  
  );
